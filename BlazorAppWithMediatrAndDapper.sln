@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAppWithMediatrAndDapper.PLL", "BlazorAppWithMediatrAndDapper.PLL\BlazorAppWithMediatrAndDapper.PLL\BlazorAppWithMediatrAndDapper.PLL.csproj", "{EBE0AC66-9FF9-435F-A542-983DEAC4AB4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAppWithMediatrAndDapper.PLL.Client", "BlazorAppWithMediatrAndDapper.PLL\BlazorAppWithMediatrAndDapper.PLL.Client\BlazorAppWithMediatrAndDapper.PLL.Client.csproj", "{45C60481-B983-4BED-AE91-D9CFB9BBBAEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAppWithMediatrAndDapper.BLL", "BlazorAppWithMediatrAndDapper.BLL\BlazorAppWithMediatrAndDapper.BLL.csproj", "{F74FD5BB-8E75-4602-BBA0-8D783036197E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBE0AC66-9FF9-435F-A542-983DEAC4AB4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE0AC66-9FF9-435F-A542-983DEAC4AB4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE0AC66-9FF9-435F-A542-983DEAC4AB4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE0AC66-9FF9-435F-A542-983DEAC4AB4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C60481-B983-4BED-AE91-D9CFB9BBBAEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C60481-B983-4BED-AE91-D9CFB9BBBAEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C60481-B983-4BED-AE91-D9CFB9BBBAEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C60481-B983-4BED-AE91-D9CFB9BBBAEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F74FD5BB-8E75-4602-BBA0-8D783036197E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F74FD5BB-8E75-4602-BBA0-8D783036197E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F74FD5BB-8E75-4602-BBA0-8D783036197E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F74FD5BB-8E75-4602-BBA0-8D783036197E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F447143-8D9A-4E83-ADC8-DDD55B2B01CA}
+	EndGlobalSection
+EndGlobal
