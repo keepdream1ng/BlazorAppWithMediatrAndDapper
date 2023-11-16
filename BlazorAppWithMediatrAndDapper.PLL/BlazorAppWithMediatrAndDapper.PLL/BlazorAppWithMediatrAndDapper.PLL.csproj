@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BlazorAppWithMediatrAndDapper.BLL\BlazorAppWithMediatrAndDapper.BLL.csproj" />
     <ProjectReference Include="..\BlazorAppWithMediatrAndDapper.PLL.Client\BlazorAppWithMediatrAndDapper.PLL.Client.csproj" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
 

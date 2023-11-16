@@ -1,3 +1,4 @@
+using BlazorAppWithMediatrAndDapper.BLL;
 using BlazorAppWithMediatrAndDapper.PLL.Client;
 using BlazorAppWithMediatrAndDapper.PLL.Components;
 
@@ -14,6 +15,7 @@ public class Program
 			.AddInteractiveServerComponents()
 			.AddInteractiveWebAssemblyComponents();
 		builder.Services.AddControllers();
+		builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EntryPointBLL>());
 
 		var app = builder.Build();
 
@@ -38,7 +40,7 @@ public class Program
 		app.MapRazorComponents<App>()
 			.AddInteractiveServerRenderMode()
 			.AddInteractiveWebAssemblyRenderMode()
-			.AddAdditionalAssemblies(typeof(ClientPPL).Assembly);
+			.AddAdditionalAssemblies(typeof(EntryPointClientPPL).Assembly);
 		app.MapControllers();
 
 		app.Run();

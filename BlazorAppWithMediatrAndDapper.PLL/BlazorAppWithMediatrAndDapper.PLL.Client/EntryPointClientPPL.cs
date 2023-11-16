@@ -1,5 +1,5 @@
 ﻿namespace BlazorAppWithMediatrAndDapper.PLL.Client;
 
-public class ClientPPL
+public class EntryPointClientPPL
 {
 }
