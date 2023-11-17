@@ -1,0 +1,42 @@
+﻿@page "/providersView"
+@* This allow to have interactive element, that fetch data fromAPI. *@
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+@inject HttpClient Http
+
+<PageTitle>Providers</PageTitle>
+
+<h1>Providers</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (_providers == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Temp. (C)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Provider p in _providers)
+			{
+				<tr>
+					<td>@p.Name</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private List<Provider> _providers;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_providers = await Http.GetFromJsonAsync<List<Provider>>("Providers");
+	}
+}

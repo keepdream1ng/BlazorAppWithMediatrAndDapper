@@ -1,4 +1,4 @@
-using BlazorAppWithMediatrAndDapper.BLL.Models;
+﻿using BlazorAppWithMediatrAndDapper.BLL.Models;
 using BlazorAppWithMediatrAndDapper.BLL.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,20 +7,18 @@ namespace BlazorAppWithMediatrAndDapper.PLL;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class ProvidersController : ControllerBase
 {
 
-	private readonly ILogger<WeatherForecastController> _logger;
 	private readonly IMediator _mediator;
 
-	public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator)
+	public ProvidersController(IMediator mediator)
 	{
-		_logger = logger;
 		_mediator = mediator;
 	}
 
 	[HttpGet]
-	public async Task<IEnumerable<Provider>> Get()
+	public async Task<List<Provider>> Get()
 	{
 		return await _mediator.Send(new GetAllProvidersQuery());
 	}

@@ -1,4 +1,5 @@
 using BlazorAppWithMediatrAndDapper.BLL;
+using BlazorAppWithMediatrAndDapper.DAL.Repositories;
 using BlazorAppWithMediatrAndDapper.PLL.Client;
 using BlazorAppWithMediatrAndDapper.PLL.Components;
 
@@ -16,6 +17,7 @@ public class Program
 			.AddInteractiveWebAssemblyComponents();
 		builder.Services.AddControllers();
 		builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EntryPointBLL>());
+		builder.Services.AddTransient<ProviderRepository>();
 
 		var app = builder.Build();
 
