@@ -18,13 +18,15 @@ else
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Temp. (C)</th>
+				<th>Id</th>
+				<th>Name</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach (Provider p in _providers)
 			{
 				<tr>
+					<td>@p.Id</td>
 					<td>@p.Name</td>
 				</tr>
 			}

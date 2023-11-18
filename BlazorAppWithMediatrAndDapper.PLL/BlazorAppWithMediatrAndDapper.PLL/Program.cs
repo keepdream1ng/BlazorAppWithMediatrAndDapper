@@ -2,6 +2,7 @@ using BlazorAppWithMediatrAndDapper.BLL;
 using BlazorAppWithMediatrAndDapper.DAL.Repositories;
 using BlazorAppWithMediatrAndDapper.PLL.Client;
 using BlazorAppWithMediatrAndDapper.PLL.Components;
+using System.Reflection;
 
 namespace BlazorAppWithMediatrAndDapper.PLL;
 
@@ -18,6 +19,7 @@ public class Program
 		builder.Services.AddControllers();
 		builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EntryPointBLL>());
 		builder.Services.AddTransient<ProviderRepository>();
+		builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
 		var app = builder.Build();
 
