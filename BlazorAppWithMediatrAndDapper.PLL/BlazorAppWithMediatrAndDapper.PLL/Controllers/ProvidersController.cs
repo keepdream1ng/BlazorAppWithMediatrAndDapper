@@ -20,7 +20,6 @@ public class ProvidersController : ControllerBase
 	[HttpGet]
 	public async Task<List<Provider>> Get()
 	{
-		var result = await _mediator.Send(new GetAllProvidersQuery());
-		return result;
+		return await _mediator.Send(new GetAllProvidersQuery());
 	}
 }
