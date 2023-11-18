@@ -35,10 +35,10 @@ else
 }
 
 @code {
-	private List<Provider> _providers;
+	private Provider[] _providers;
 
 	protected override async Task OnInitializedAsync()
 	{
-		_providers = await Http.GetFromJsonAsync<List<Provider>>("Providers");
+		_providers = await Http.GetFromJsonAsync<Provider[]>("Providers");
 	}
 }

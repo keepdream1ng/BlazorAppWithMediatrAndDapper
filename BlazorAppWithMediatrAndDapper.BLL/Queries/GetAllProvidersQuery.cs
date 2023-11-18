@@ -3,4 +3,4 @@ using MediatR;
 
 namespace BlazorAppWithMediatrAndDapper.BLL.Queries;
 
-public record GetAllProvidersQuery() : IRequest<List<Provider>>;
+public record GetAllProvidersQuery() : IRequest<Provider[]>;
