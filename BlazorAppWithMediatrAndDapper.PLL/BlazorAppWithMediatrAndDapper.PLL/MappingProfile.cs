@@ -2,7 +2,7 @@
 using BlazorAppWithMediatrAndDapper.BLL.Models;
 using BlazorAppWithMediatrAndDapper.DAL.Entities;
 
-namespace BlazorAppWithMediatrAndDapper.BLL;
+namespace BlazorAppWithMediatrAndDapper.PLL;
 
 public class MappingProfile : Profile
 {
