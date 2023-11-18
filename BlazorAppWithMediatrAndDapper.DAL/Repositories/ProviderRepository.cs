@@ -9,9 +9,9 @@ namespace BlazorAppWithMediatrAndDapper.DAL.Repositories;
 
 public class ProviderRepository : BaseRepository
 {
-	public Task<List<ProviderEntity>> GetAll()
+	public async Task<List<ProviderEntity>> GetAll()
 	{
-		var result =  QueryAsync<ProviderEntity>(@"select * from Provider");
+		var result = await QueryAsync<ProviderEntity>(@"select * from Provider");
 		return result;
 	}
 }
