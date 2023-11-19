@@ -1,0 +1,66 @@
+﻿@page "/orderOptions"
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+@inject HttpClient Http
+
+<h1>Order options</h1>
+
+<EditForm Model="@Model" OnValidSubmit="@Submit" FormName="OrderOptionsForm">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<label for="orderNumberInput">
+		Number:
+	</label>
+	<InputText id="orderNumberInput" placeholder="N01DEA" @bind-Value="Model.Number" />
+
+	<label for="orderDateInput">
+		Date:
+	</label>
+	<InputDate id="orderDateInput" TValue="DateOnly" @bind-Value="Model.Date" />
+
+	<label for="providersSelect">
+		Provider:
+	</label>
+	<InputSelect id="providersSelect" @bind-Value="Model.ProviderId">
+		<option value="@(0)">Select provider</option>
+		@foreach (Provider p in _providers)
+		{
+			<option value="@p.Id">@p.Name</option>
+		}
+	</InputSelect>
+
+	<button type="submit">
+		Submit
+	</button>
+</EditForm>
+
+<QuickGrid Items="@Model.Items">
+    <PropertyColumn Property="@(i => i.Name)" Sortable="true" />
+    <PropertyColumn Property="@(i => i.Quantity)" Sortable="true" />
+    <PropertyColumn Property="@(i => i.Unit)" Sortable="true" />
+	<TemplateColumn Title="Actions">
+		<button @onclick="@(() => Remove(context))">Remove</button>
+	</TemplateColumn>
+</QuickGrid>
+
+
+@code {
+	public OrderOptionsViewModel Model = new();
+
+	private Provider[] _providers = [];
+
+	protected override async Task OnInitializedAsync()
+	{
+		_providers = await Http.GetFromJsonAsync<Provider[]>("Providers");
+		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item1", Quantity = 1, Unit = "tonn" });
+		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item2", Quantity = 3, Unit = "tonn" });
+		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item3", Quantity = 5, Unit = "kg" });
+	}
+
+	private void Submit()
+	{
+	}
+	private void Remove(OrderItemViewModel oi)
+	{
+		Model.ItemsList.Remove(oi);
+	}
+}
