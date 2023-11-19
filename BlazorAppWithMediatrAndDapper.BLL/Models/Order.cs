@@ -6,7 +6,7 @@ public class Order
 {
 	public int Id { get; private set; }
 	public string Number { get; private set; }
-	public DateOnly Date {  get; private set; }
+	public DateOnly Date { get; private set; }
 	public Provider Provider { get; private set; }
 
 	internal List<OrderItem> _items;
