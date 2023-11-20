@@ -78,11 +78,11 @@
 	[EditorRequired]
 	public OrderOptionsViewModel ParentModel { get; set; }
 
-	private OrderItemViewModel NewItem { get; set; } = new();
+	private OrderItemViewModel NewItem { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{
-		NewItem.IsEditing = true;
+		RenewNewItem();
 	}
 
 	private void Submit()
@@ -143,6 +143,7 @@
 	{
 		NewItem = new();
 		NewItem.IsEditing = true;
+		NewItem.OrderId = ParentModel.OrderId;
 	}
 
 	private OrderItemViewModel GetEditedItemFromList()

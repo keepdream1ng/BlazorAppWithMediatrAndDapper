@@ -1,6 +1,7 @@
 ﻿@page "/orderOptions"
 @rendermode @(new InteractiveAutoRenderMode(prerender: false))
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
 
 <h1>Order options</h1>
 
@@ -33,7 +34,7 @@
 	</button>
 </EditForm>
 
-<OrderItemsTable ParentModel="@Model"/>
+<OrderItemsTable ParentModel="@Model" />
 
 @code {
 	public OrderOptionsViewModel Model = new();
@@ -48,7 +49,20 @@
 		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item3", Quantity = 5, Unit = "kg" });
 	}
 
-	private void Submit()
+	private async void Submit()
 	{
+		HttpResponseMessage? response;
+		if (Model.ExistingOrder)
+		{
+			response = await Http.PutAsJsonAsync("Order", Model);
+		}
+		else
+		{
+			response = await Http.PostAsJsonAsync("Order", Model);
+		}
+		if (response.IsSuccessStatusCode)
+		{
+			NavigationManager.NavigateTo("/");
+		}
 	}
 }
