@@ -23,7 +23,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (Provider p in _providers)
+			@foreach (ProviderViewModel p in _providers)
 			{
 				<tr>
 					<td>@p.Id</td>
@@ -35,10 +35,10 @@ else
 }
 
 @code {
-	private Provider[] _providers;
+	private ProviderViewModel[] _providers;
 
 	protected override async Task OnInitializedAsync()
 	{
-		_providers = await Http.GetFromJsonAsync<Provider[]>("Providers");
+		_providers = await Http.GetFromJsonAsync<ProviderViewModel[]>("Providers");
 	}
 }

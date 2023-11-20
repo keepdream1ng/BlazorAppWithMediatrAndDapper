@@ -14,30 +14,61 @@
 			@foreach (OrderItemViewModel oi in ParentModel.ItemsList)
 			{
 				<tr>
-					<td>@oi.Name</td>
-					<td>@oi.Quantity</td>
-					<td>@oi.Unit</td>
+					@if (oi.IsEditing)
+					{
+						<td>
+							<InputText placeholder="item Name" @bind-Value="@NewItem.Name" />
+						</td>
+						<td>
+							<InputNumber @bind-Value="@NewItem.Quantity" />
+						</td>
+						<td>
+							<InputText placeholder="item unit" @bind-Value="@NewItem.Unit" />
+						</td>
+						<td>
+							<button type="submit">
+								Save
+							</button>
+							<button type="button" @onclick="() => CancelEdit(oi)">
+								Cancel edit.
+							</button>
+						</td>
+					}
+					else
+					{
+						<td>@oi.Name</td>
+						<td>@oi.Quantity</td>
+						<td>@oi.Unit</td>
+						<td>
+							<button type="button" @onclick="() => EditItem(oi)">
+								Edit
+							</button>
+							<button type="button" @onclick="() => DeleteItem(oi)">
+								Delete
+							</button>
+						</td>
+					}
+				</tr>
+			}
+			@if (NewItem.IsEditing)
+			{
+				<tr>
 					<td>
-						<button type="button" @onclick="() => DeleteItem(oi)">
-							Delete
+						<InputText placeholder="item Name" @bind-Value="@NewItem.Name" />
+					</td>
+					<td>
+						<InputNumber @bind-Value="@NewItem.Quantity" />
+					</td>
+					<td>
+						<InputText placeholder="item unit" @bind-Value="@NewItem.Unit" />
+					</td>
+					<td>
+						<button type="submit">
+							Add
 						</button>
 					</td>
 				</tr>
 			}
-			<tr>
-				<td>
-					<InputText placeholder="item Name" @bind-Value="@NewItem.Name" />
-				</td>
-				<td>
-					<InputNumber @bind-Value="@NewItem.Quantity" />
-				</td>
-				<td>
-					<InputText placeholder="item unit" @bind-Value="@NewItem.Unit" />
-				</td>
-				<td>
-					<button type="submit">Add</button>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 	<ValidationSummary />
@@ -49,14 +80,73 @@
 
 	private OrderItemViewModel NewItem { get; set; } = new();
 
+	protected override async Task OnInitializedAsync()
+	{
+		NewItem.IsEditing = true;
+	}
+
 	private void Submit()
 	{
-		ParentModel.ItemsList.Add(NewItem);
-		NewItem = new();
+		var editedFromList = GetEditedItemFromList();
+		if (editedFromList is not null)
+		{
+			ReplaceItem(editedFromList);
+		}
+		else
+		{
+			AddNew();
+		}
+	}
+
+	private void EditItem(OrderItemViewModel item)
+	{
+		var editedBeforeItem = GetEditedItemFromList();
+		if (editedBeforeItem is not null)
+		{
+			editedBeforeItem.IsEditing = false;
+		}
+		NewItem.IsEditing = false;
+		// I dont want to put extra things into assembly like automapper so code creates copy long way.
+		NewItem.Id = item.Id;
+		NewItem.OrderId = item.OrderId;
+		NewItem.Name = item.Name;
+		NewItem.Quantity = item.Quantity;
+		NewItem.Unit = item.Unit;
+		item.IsEditing = true;
 	}
 
 	private void DeleteItem(OrderItemViewModel item)
 	{
 		ParentModel.ItemsList.Remove(item);
+	}
+
+	private void AddNew()
+	{
+		NewItem.IsEditing = false;
+		ParentModel.ItemsList.Add(NewItem);
+		RenewNewItem();
+	}
+
+	private void ReplaceItem(OrderItemViewModel item)
+	{
+		DeleteItem(item);
+		AddNew();
+	}
+
+	private void CancelEdit(OrderItemViewModel item)
+	{
+		item.IsEditing = false;
+		RenewNewItem();
+	}
+
+	private void RenewNewItem()
+	{
+		NewItem = new();
+		NewItem.IsEditing = true;
+	}
+
+	private OrderItemViewModel GetEditedItemFromList()
+	{
+		return ParentModel.ItemsList.FirstOrDefault(item => item.IsEditing == true);
 	}
 }

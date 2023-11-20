@@ -6,6 +6,7 @@ public class OrderItemViewModel
 {
 	public int Id { get; set; }
 	public int OrderId { get; set; }
+	public bool IsEditing {  get; set; }
 
 	[Required]
 	public string Name { get; set; }

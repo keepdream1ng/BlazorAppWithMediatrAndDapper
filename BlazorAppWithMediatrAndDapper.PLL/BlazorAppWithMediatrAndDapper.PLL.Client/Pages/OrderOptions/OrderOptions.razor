@@ -22,7 +22,7 @@
 	</label>
 	<InputSelect id="providersSelect" @bind-Value="Model.ProviderId">
 		<option value="@(0)">Select provider</option>
-		@foreach (Provider p in _providers)
+		@foreach (ProviderViewModel p in _providers)
 		{
 			<option value="@p.Id">@p.Name</option>
 		}
@@ -38,11 +38,11 @@
 @code {
 	public OrderOptionsViewModel Model = new();
 
-	private Provider[] _providers = [];
+	private ProviderViewModel[] _providers = [];
 
 	protected override async Task OnInitializedAsync()
 	{
-		_providers = await Http.GetFromJsonAsync<Provider[]>("Providers");
+		_providers = await Http.GetFromJsonAsync<ProviderViewModel[]>("Providers");
 		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item1", Quantity = 1, Unit = "tonn" });
 		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item2", Quantity = 3, Unit = "tonn" });
 		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item3", Quantity = 5, Unit = "kg" });

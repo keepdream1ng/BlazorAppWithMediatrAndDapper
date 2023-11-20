@@ -1,5 +1,4 @@
-﻿using BlazorAppWithMediatrAndDapper.BLL.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BlazorAppWithMediatrAndDapper.PLL.Client.ViewModels;
 
