@@ -11,8 +11,8 @@ public class OrderItemViewModel
 	public string Name { get; set; }
 
 	[Required]
-	[Range(1, int.MaxValue, ErrorMessage = "Quantity should be at least 1")]
-	public int Quantity { get; set; }
+	[Range(0.001, double.MaxValue, ErrorMessage = "Quantity should be at least 0.001")]
+	public decimal Quantity { get; set; }
 
 	[Required]
 	public string Unit { get; set; }
