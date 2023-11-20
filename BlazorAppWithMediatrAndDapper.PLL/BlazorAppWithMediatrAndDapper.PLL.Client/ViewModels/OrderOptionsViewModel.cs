@@ -7,7 +7,6 @@ public class OrderOptionsViewModel
 {
 	public bool ExistingOrder { get; set; }
 	public int OrderId { get; set; }
-	public int Id { get; set; }
 
 	[Required]
 	public string Number { get; set; }

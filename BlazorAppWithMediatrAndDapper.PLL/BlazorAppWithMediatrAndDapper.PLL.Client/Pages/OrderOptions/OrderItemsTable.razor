@@ -1,0 +1,62 @@
+﻿<h3>Order Items Table</h3>
+<EditForm Model="@NewItem" OnValidSubmit="Submit">
+	<DataAnnotationsValidator />
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Quatity</th>
+				<th>Unit</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (OrderItemViewModel oi in ParentModel.ItemsList)
+			{
+				<tr>
+					<td>@oi.Name</td>
+					<td>@oi.Quantity</td>
+					<td>@oi.Unit</td>
+					<td>
+						<button type="button" @onclick="() => DeleteItem(oi)">
+							Delete
+						</button>
+					</td>
+				</tr>
+			}
+			<tr>
+				<td>
+					<InputText placeholder="item Name" @bind-Value="@NewItem.Name" />
+				</td>
+				<td>
+					<InputNumber @bind-Value="@NewItem.Quantity" />
+				</td>
+				<td>
+					<InputText placeholder="item unit" @bind-Value="@NewItem.Unit" />
+				</td>
+				<td>
+					<button type="submit">Add</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ValidationSummary />
+</EditForm>
+@code {
+	[Parameter]
+	[EditorRequired]
+	public OrderOptionsViewModel ParentModel { get; set; }
+
+	private OrderItemViewModel NewItem { get; set; } = new();
+
+	private void Submit()
+	{
+		ParentModel.ItemsList.Add(NewItem);
+		NewItem = new();
+	}
+
+	private void DeleteItem(OrderItemViewModel item)
+	{
+		ParentModel.ItemsList.Remove(item);
+	}
+}

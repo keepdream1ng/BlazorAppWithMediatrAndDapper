@@ -4,7 +4,7 @@
 
 <h1>Order options</h1>
 
-<EditForm Model="@Model" OnValidSubmit="@Submit" FormName="OrderOptionsForm">
+<EditForm Model="@Model" OnValidSubmit="Submit">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 	<label for="orderNumberInput">
@@ -33,15 +33,7 @@
 	</button>
 </EditForm>
 
-<QuickGrid Items="@Model.Items">
-    <PropertyColumn Property="@(i => i.Name)" Sortable="true" />
-    <PropertyColumn Property="@(i => i.Quantity)" Sortable="true" />
-    <PropertyColumn Property="@(i => i.Unit)" Sortable="true" />
-	<TemplateColumn Title="Actions">
-		<button @onclick="@(() => Remove(context))">Remove</button>
-	</TemplateColumn>
-</QuickGrid>
-
+<OrderItemsTable ParentModel="@Model"/>
 
 @code {
 	public OrderOptionsViewModel Model = new();
@@ -58,9 +50,5 @@
 
 	private void Submit()
 	{
-	}
-	private void Remove(OrderItemViewModel oi)
-	{
-		Model.ItemsList.Remove(oi);
 	}
 }

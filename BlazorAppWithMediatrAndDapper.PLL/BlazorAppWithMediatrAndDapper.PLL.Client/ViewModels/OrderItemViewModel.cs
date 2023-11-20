@@ -9,6 +9,11 @@ public class OrderItemViewModel
 
 	[Required]
 	public string Name { get; set; }
-	public uint Quantity { get; set; }
+
+	[Required]
+	[Range(1, int.MaxValue, ErrorMessage = "Quantity should be at least 1")]
+	public int Quantity { get; set; }
+
+	[Required]
 	public string Unit { get; set; }
 }
