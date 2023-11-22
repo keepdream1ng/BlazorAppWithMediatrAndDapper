@@ -19,7 +19,7 @@ public class BaseRepository
 
 	protected async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object parameters = null)
 	{
-		using (var connection = CreateConnection())
+		using (var connection = CreateConnectionQuery())
 		{
 			connection.Open();
 			return await connection.QueryFirstOrDefaultAsync<T>(sql, parameters);
@@ -28,7 +28,7 @@ public class BaseRepository
 
 	protected async Task<List<T>> QueryAsync<T>(string sql, object parameters = null)
 	{
-		using (var connection = CreateConnection())
+		using (var connection = CreateConnectionQuery())
 		{
 			connection.Open();
 			var result = await connection.QueryAsync<T>(sql, parameters);
@@ -38,14 +38,19 @@ public class BaseRepository
 
 	protected async Task<int> ExecuteAsync(string sql, object parameters = null)
 	{
-		using (var connection = CreateConnection())
+		using (var connection = CreateConnectionCommand())
 		{
 			connection.Open();
 			return await connection.ExecuteAsync(sql, parameters);
 		}
 	}
 
-	protected IDbConnection CreateConnection()
+	// For CQRS we can use different databases for readind and writing data.
+	protected IDbConnection CreateConnectionQuery()
+	{
+		return new SQLiteConnection(ConnectionString);
+	}
+	protected IDbConnection CreateConnectionCommand()
 	{
 		return new SQLiteConnection(ConnectionString);
 	}

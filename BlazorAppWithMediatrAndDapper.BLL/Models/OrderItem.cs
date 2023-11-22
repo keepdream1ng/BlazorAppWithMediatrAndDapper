@@ -19,9 +19,9 @@ public class OrderItem
 		{
 			throw new ArgumentException("OrderItem name cannot be empty", nameof(name));
 		}
-		if (quantity == 0)
+		if (quantity <= 0.001)
 		{
-			throw new ArgumentException("Quantity must be at least one", nameof(quantity));
+			throw new ArgumentException("Quantity must be at least 0.001", nameof(quantity));
 		}
 		if (string.IsNullOrEmpty(unit))
 		{

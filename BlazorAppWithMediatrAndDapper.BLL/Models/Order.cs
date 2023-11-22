@@ -13,23 +13,17 @@ public class Order
 	public ReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
 
 	private Order() { }
-	public Order(string number, Provider provider, List<OrderItem> items = null)
+	public Order(int id, string number, Provider provider)
 	{
 		if (string.IsNullOrEmpty(number))
 		{
-			throw new ArgumentException("OrderItem name cannot be empty", nameof(number));
+			throw new ArgumentException("Order name cannot be empty", nameof(number));
 		}
+		Id = id;
 		Number = number;
 		Date = DateOnly.FromDateTime(DateTime.Now);
 		Provider = provider;
-		if (items != null)
-		{
-			_items = items;
-		}
-		else
-		{
-			_items = [];
-		}
+		_items = [];
 	}
 
 	public void AddItem(OrderItem item)

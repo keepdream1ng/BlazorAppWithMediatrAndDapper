@@ -44,9 +44,10 @@
 	protected override async Task OnInitializedAsync()
 	{
 		_providers = await Http.GetFromJsonAsync<ProviderViewModel[]>("Providers");
-		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item1", Quantity = 1, Unit = "tonn" });
-		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item2", Quantity = 3, Unit = "tonn" });
-		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item3", Quantity = 5, Unit = "kg" });
+		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item1", Quantity = 1, Unit = "tonn", OrderId = 1 });
+		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item2", Quantity = 3, Unit = "tonn", OrderId = 1 });
+		Model.ItemsList.Add(new OrderItemViewModel() { Name = "item3", Quantity = 5, Unit = "kg", OrderId = 1 });
+		Model.OrderId = 1;
 	}
 
 	private async void Submit()

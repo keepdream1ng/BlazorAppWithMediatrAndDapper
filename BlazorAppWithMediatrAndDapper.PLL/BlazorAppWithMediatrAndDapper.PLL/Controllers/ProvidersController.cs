@@ -18,8 +18,9 @@ public class ProvidersController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<Provider[]> Get()
+	public async Task<IActionResult> Get()
 	{
-		return await _mediator.Send(new GetAllProvidersQuery());
+		Provider[] providers = await _mediator.Send(new GetAllProvidersQuery());
+		return Ok(providers);
 	}
 }

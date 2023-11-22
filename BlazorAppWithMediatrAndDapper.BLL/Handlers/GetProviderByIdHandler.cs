@@ -7,21 +7,21 @@ using MediatR;
 
 namespace BlazorAppWithMediatrAndDapper.BLL.Handlers;
 
-public class GetAllProvidersHandler : IRequestHandler<GetAllProvidersQuery, Provider[]>
+public class GetProviderByIdHandler : IRequestHandler<GetProviderByIdQuery, Provider>
 {
 	private readonly IProviderRepository _repo;
 	private readonly IMapper _mapper;
 
-	public GetAllProvidersHandler(IProviderRepository repo, IMapper mapper)
+	public GetProviderByIdHandler(IProviderRepository repo, IMapper mapper)
     {
 		_repo = repo;
 		_mapper = mapper;
 	}
-    public async Task<Provider[]> Handle(GetAllProvidersQuery request, CancellationToken cancellationToken)
-	{
-		var entities = await _repo.GetAll();
-		Provider[] result = _mapper.Map<ProviderEntity[], Provider[]>(entities.ToArray());
-		return result;
-    }
-}
 
+	public async Task<Provider> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
+	{
+		var providerEntity = await _repo.GetById(request.Id);
+		Provider result = _mapper.Map<ProviderEntity, Provider>(providerEntity);
+		return result;
+	}
+}

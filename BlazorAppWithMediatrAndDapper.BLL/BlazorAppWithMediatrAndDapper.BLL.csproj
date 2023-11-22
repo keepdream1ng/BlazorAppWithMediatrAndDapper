@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorAppWithMediatrAndDapper.DAL\BlazorAppWithMediatrAndDapper.DAL.csproj" />
+    <ProjectReference Include="..\BlazorAppWithMediatrAndDapper.PLL\BlazorAppWithMediatrAndDapper.PLL.Client\BlazorAppWithMediatrAndDapper.PLL.Client.csproj" />
   </ItemGroup>
 
 </Project>

@@ -17,9 +17,10 @@ public class Program
 			.AddInteractiveServerComponents()
 			.AddInteractiveWebAssemblyComponents();
 		builder.Services.AddControllers();
-		builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EntryPointBLL>());
-		builder.Services.AddTransient<ProviderRepository>();
+		builder.Services.AddTransient<IProviderRepository, ProviderRepository>();
+		builder.Services.AddTransient<OrderRepository>();
 		builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
+		builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EntryPointBLL>());
 
 		var app = builder.Build();
 
