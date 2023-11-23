@@ -22,14 +22,16 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Order>
 	}
     public async Task<Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
 	{
+		// Getting new Id for creating Order aggregate.
 		Provider provider = await _mediator.Send(new GetProviderByIdQuery(request.Model.ProviderId));
 		int newId = await _mediator.Send(new GetNewOrderIdQuery());
 		request.Model.ItemsList.ForEach(item => item.OrderId = newId);
 		List<OrderItem> items = _mapper.Map<List<OrderItemViewModel>, List<OrderItem>>(request.Model.ItemsList);
 		Order newOrder = new Order(newId, request.Model.Number, provider);
 		items.ForEach(item =>newOrder.AddItem(item));
+		// Adding aggregate to db as a transaction.
 		var result = await _mediator.Send(new IncertNewOrderCommand(newOrder));
-		if (result == 1)
+		if (result == request.Model.ItemsList.Count + 1)
 		{
 			return newOrder;
 		}

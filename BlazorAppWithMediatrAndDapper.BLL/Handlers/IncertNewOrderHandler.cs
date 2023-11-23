@@ -6,6 +6,7 @@ using BlazorAppWithMediatrAndDapper.DAL.Entities;
 using BlazorAppWithMediatrAndDapper.DAL.Repositories;
 using BlazorAppWithMediatrAndDapper.PLL.Client.ViewModels;
 using MediatR;
+using System.Collections.ObjectModel;
 
 namespace BlazorAppWithMediatrAndDapper.BLL.Handlers;
 
@@ -21,7 +22,8 @@ public class IncertNewOrderHandler : IRequestHandler<IncertNewOrderCommand, int>
 	}
     public async Task<int> Handle(IncertNewOrderCommand request, CancellationToken cancellationToken)
 	{
-		var orderEntity = _mapper.Map<Order, OrderEntity>(request.order);
-		return await _orderRepository.Create(orderEntity);
+		OrderEntity orderEntity = _mapper.Map<Order, OrderEntity>(request.order);
+		List<OrderItemEntity> orderItemEntities = _mapper.Map<ReadOnlyCollection<OrderItem>, List<OrderItemEntity>>(request.order.Items);
+		return await _orderRepository.InsertWithItems(orderEntity, orderItemEntities);
 	}
 }

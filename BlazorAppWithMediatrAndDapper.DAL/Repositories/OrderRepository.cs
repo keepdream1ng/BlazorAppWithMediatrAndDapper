@@ -1,15 +1,43 @@
-﻿using BlazorAppWithMediatrAndDapper.DAL.Entities;
+﻿using BlazorAppWithMediatrAndDapper.BLL.Models;
+using BlazorAppWithMediatrAndDapper.DAL.Entities;
 using Dapper;
 
 namespace BlazorAppWithMediatrAndDapper.DAL.Repositories;
 
 public class OrderRepository : BaseRepository
 {
+	public async Task<int> InsertWithItems(OrderEntity order, List<OrderItemEntity> orderItems)
+	{
+		int result = 0;
+		using (var connection = CreateConnectionQuery())
+		{
+			connection.Open();
+			using (var transaction = connection.BeginTransaction())
+			{
+				try
+				{
+					result = connection.Execute("insert into \"Order\" (Number, Date, ProviderId) values (:Number,:Date,:ProviderId)", order);
+					foreach (OrderItemEntity orderItem in orderItems)
+					{
+						result +=  connection.Execute(@"insert into OrderItem (OrderId, Name, Quantity, Unit) values (:OrderId,:Name,:Quantity,:Unit)", orderItem);
+					}
+
+					transaction.Commit();
+					return result;
+				}
+				catch 
+				{
+					transaction.Rollback();
+					throw;
+				}
+			}
+		}
+	}
 	public async Task<int> Create(OrderEntity orderEntity)
 	{
 		var result = await ExecuteAsync("insert into \"Order\" (Number, Date, ProviderId) values (:Number,:Date,:ProviderId)",
 			orderEntity);
-		return result; 
+		return result;
 	}
 	public async Task<List<OrderEntity>> GetAll()
 	{
