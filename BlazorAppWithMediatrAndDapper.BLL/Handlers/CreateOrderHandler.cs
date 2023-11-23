@@ -13,7 +13,6 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Order>
 {
 	private readonly IMediator _mediator;
 	private readonly IMapper _mapper;
-	private readonly OrderRepository _orderRepository;
 
 	public CreateOrderHandler(IMediator mediator, IMapper mapper)
     {
